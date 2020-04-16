@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"math"
 )
 
 type config struct {
@@ -26,8 +27,11 @@ func main() {
 	for i := 1; i < cfg.peoplePerRoom;  i++ {
 		p = p * float64(cfg.daysPerYear - i) / float64(cfg.daysPerYear)
 	}
-	fmt.Printf("The probability of finding birthday twins (with %d days/year) among %d people is %f\n",
+	p = float64(1-p)
+	oneInX := int(math.Round(1/p))
+	fmt.Printf("The probability of finding birthday twins (with %d days/year) among %d people is %f or 1 out of %d\n",
 		cfg.daysPerYear,
 		cfg.peoplePerRoom,
-		float64(1)-p)
+		p,
+		oneInX)
 }
